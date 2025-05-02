@@ -6,8 +6,8 @@ let mainWindow;
 function createWindow() {
   try {
     mainWindow = new BrowserWindow({
-      width: 950,
-      height: 505,
+      width: 1920,
+      height: 1080,
       icon: path.join(__dirname, '../assets/icon.ico'),
       // remove the default titlebar
     titleBarStyle: 'hidden',
@@ -15,7 +15,7 @@ function createWindow() {
     ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {}),
     titleBarOverlay: {
       color: '#1c1c1c',
-    symbolColor: '#fa008a',
+    symbolColor: 'white',
     height: 8
     },
       webPreferences: {

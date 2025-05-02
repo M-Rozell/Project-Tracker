@@ -1,5 +1,5 @@
 {
-  "name": "ptdx-editor",
+  "name": "electron-vite-template",
   "version": "1.0.0",
   "description": "",
   "main": "electron/main.js",
