@@ -1,9 +1,9 @@
 
  
-const Dashboard = ({username}) => {
+const Dashboard = ({user}) => {
     return (
         <div>
-        <h1 className="welcome">Welcome {username}!!!!</h1>
+        <h1 className="welcome">Welcome {user}!!!!</h1>
         </div>
     )
 };

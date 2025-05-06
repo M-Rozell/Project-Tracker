@@ -1,39 +1,31 @@
-import { useState } from "react";
+import { useAuth } from "./utils/AuthContext";
 import Login from "./components/Login";
-import "./css/App.css"
 import Dashboard from "./components/Dashboard";
+import "./css/App.css";
 
-  
-  const App = () => {
-    
-    const [login, setLogin] = useState(false);
+const App = () => {
+  const { user, logout, loading } = useAuth();
 
-    const handleLogOut = () => {
-      setLogin(false);
-      localStorage.removeItem("token");  // Optional, if you store token
-    }
+  if (loading) {
+    return <div>Loading...</div>; // or a spinner
+  }
 
-    return (
-    <>
-    
+  return (
     <div>
-      {login ? (
+      {user ? (
         <>
-        <Dashboard />
-        <button on onClick={handleLogOut}>Logout</button>
+          <Dashboard user={user} />
+          <button onClick={logout}>Logout</button>
         </>
       ) : (
-        <Login 
-        setLogin={setLogin}
-        login={login}/>
+        <Login />
       )}
-      </div>
-    </>
-    )
-  };
+    </div>
+  );
+};
 
-  
-  export default App;
+export default App;
+
 
 
 

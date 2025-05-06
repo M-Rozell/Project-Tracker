@@ -1,10 +1,10 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Form
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy import select, update
 from sqlalchemy.engine import Result
 from models import users
 from schemas import UserCreate, UserOut, UserUpdate
-from auth import create_access_token, verify_password, hash_password, get_current_user
+from auth import create_access_token, create_refresh_token, verify_password, hash_password, get_current_user, oauth2_scheme, SECRET_KEY, ALGORITHM, JWTError, jwt
 from datetime import datetime, timezone
 from typing import List
 from db import database
@@ -56,10 +56,44 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
     access_token = create_access_token(data={"sub": user["username"],  "role": user["role"]})
-    return {"access_token": access_token, "token_type": "bearer"}
+    refresh_token = create_refresh_token({"sub": user["username"]})
+    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer"}
+
+
+@router.post("/refresh")
+async def refresh_token(refresh_token: str = Form(...)):
+    try:
+        payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
+        username = payload.get("sub")
+        if username is None:
+            raise HTTPException(status_code=401, detail="Invalid refresh token")
+        
+        # You could verify if the refresh token is in a whitelist (recommended)
+        new_access_token = create_access_token({"sub": username})
+        return {"access_token": new_access_token, "token_type": "bearer"}
+
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid refresh token")
     
 
 
+
+@router.get("/me", response_model=UserOut)
+async def read_users_me(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise HTTPException(status_code=401, detail="Invalid token")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    query = users.select().where(users.c.username == username)
+    user = await database.fetch_one(query)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return user
 
 
 
