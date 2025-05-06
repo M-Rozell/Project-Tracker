@@ -23,6 +23,13 @@ body,html {
   color: #c1c2c1;
   -webkit-app-region: drag; /* Enables dragging of the window in Electron */
 }
+label {
+  color: #c1c2c1;
+}
+
+.welcome {
+  color: #c1c2c1;
+}
 
 
 

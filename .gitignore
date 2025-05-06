@@ -1,2 +1,36 @@
-node_modules
-dist/
+# Python
+backend/venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.env
+
+# VS Code
+.vscode/
+
+# Node.js / Electron / React
+**/node_modules/
+**/dist/
+**/build/
+**/.parcel-cache/
+**/.turbo/
+
+# Logs
+*.log
+
+# OS / System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Compiled files
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Virtual environments (if named differently)
+env/
+.venv/

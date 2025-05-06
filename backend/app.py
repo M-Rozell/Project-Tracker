@@ -1,29 +1,40 @@
-from flask import Flask, request, jsonify, send_file
-from flask_cors import CORS
+from fastapi import FastAPI
+from contextlib import asynccontextmanager
+from db import database, metadata, engine
+from routes.projects import router as projects_router
+from routes.users import router as users_router
+from fastapi.middleware.cors import CORSMiddleware
+
+# Create tables
+metadata.create_all(engine)
+
+# Lifespan: connect/disconnect database
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await database.connect()
+    yield
+    await database.disconnect()
+
+# Create app
+app = FastAPI(lifespan=lifespan)
+
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  #["http://localhost:5173"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Register routers
+app.include_router(projects_router)
+app.include_router(users_router)
 
 
 
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
-
-@app.after_request
-def add_cors_headers(response):
-    response.headers["Access-Control-Allow-Origin"] = "http://localhost:5173"
-    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-    response.headers["Access-Control-Allow-Credentials"] = "true"
-    return response
 
 
-
-@app.route('/api/hello', methods=['GET'])
-def hello():
-    return jsonify({"message": "Hello, World!"})
-
-
-
-if __name__ == '__main__':
-    app.run(host="localhost", port=5000, debug=True)
 
 
 
