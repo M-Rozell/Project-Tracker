@@ -8,6 +8,7 @@ projects = Table(
     Column("id", Integer, primary_key=True),
     Column("work_order", String(50), nullable=False),
     Column("project_name", String(100), nullable=False),
+    Column("completion", Float, default=0.0),
     Column("owner", String(100), nullable=False),
     Column("customer", String(100), nullable=False),
     Column("description", Text),
@@ -16,9 +17,11 @@ projects = Table(
     Column("status", String(50), nullable=False),
     Column("start_date", Date),
     Column("end_date", Date),
-    Column("create_time", DateTime, server_default=func.now()),
+    Column("updated_by", String(50)),
     Column("update_time", DateTime, server_default=func.now(), onupdate=func.now()),
     Column("notes", Text),
+    Column("create_time", DateTime, server_default=func.now()),
+    Column("created_by", String(50)),    
 )
 
 users = Table(
@@ -32,6 +35,8 @@ users = Table(
     Column("create_time", DateTime, server_default=func.now()),
     Column("update_time", DateTime, server_default=func.now(), onupdate=func.now()),
 )
+
+role = Column(String, default="user")  # e.g. "admin", "manager", "user"
 
 
 

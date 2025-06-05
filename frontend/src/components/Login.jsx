@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../utils/AuthContext";
+import "../css/login.css";
 
 const Login = ({ setLogin }) => {
     const [username, setUsername] = useState("");
@@ -27,9 +28,15 @@ const Login = ({ setLogin }) => {
     };
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
+        <div className="loginWrapper">
+            <h1
+                className="loginTitle"
+            >Login
+            </h1>
+            <form
+            className="loginFormWrapper" 
+            onSubmit={handleSubmit}
+            >
                 <div>
                     <label>Username:</label>
                     <input
@@ -46,8 +53,11 @@ const Login = ({ setLogin }) => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit">Login</button>
-                <button onClick={handleReset} type="button">Clear</button>
+                <div className="formBtnWrapper">
+                    <button type="submit">Login</button>
+                    <button onClick={handleReset} type="button">Clear</button>
+                </div>
+                
             </form>
             {error && <p style={{ color: "red" }}>{error}</p>}
         </div>

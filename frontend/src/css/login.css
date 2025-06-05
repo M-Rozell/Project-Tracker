@@ -1,0 +1,33 @@
+.loginWrapper {
+    border: 2px solid pink;
+}
+
+.loginTitle {
+    text-align: center;
+    color:aliceblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 100;
+}
+
+.loginFormWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 100;
+}
+.loginFormWrapper label, .loginFormWrapper input {
+    margin: .25rem .25rem .25rem .25rem;
+}
+
+.formBtnWrapper {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: .5rem .5rem .5rem .5rem; 
+}
+.formBtnWrapper button {
+    margin: .25rem 0 .5rem .5rem;
+    align-items: center;
+    text-align: center;
+}

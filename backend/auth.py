@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
+from fastapi import status
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 import os
+from roles import ROLE_PERMISSIONS;
 
 # Load environment variables
 load_dotenv()
@@ -67,6 +69,17 @@ def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
     if not username or not role:
         raise HTTPException(status_code=401, detail="Invalid token payload")
     return {"username": username, "role": role}
+
+def require_permission(permission: str):
+    def permission_checker(current_user: dict = Depends(get_current_user)):
+        role = current_user["role"]
+        if permission not in ROLE_PERMISSIONS.get(role, set()):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Permission '{permission}' not allowed for role '{role}'"
+            )
+        return current_user  # Optional: return user info to the route
+    return permission_checker
 
 
 

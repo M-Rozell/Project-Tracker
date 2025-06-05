@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("refresh_token");
         setUser(null);
       })
-      .finally(() => setLoading(false)); // ✅ set loading false
+      .finally(() => setLoading(false)); // set loading false
     } else {
       setLoading(false);
     }

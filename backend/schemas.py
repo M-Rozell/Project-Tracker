@@ -6,6 +6,7 @@ from typing import Optional
 class ProjectBase(BaseModel):
     work_order: str
     project_name: str
+    completion: Optional[float] = 0.0
     owner: str
     customer: str
     description: Optional[str] = None
@@ -26,6 +27,8 @@ class Project(ProjectBase):
     id: int
     create_time: datetime
     update_time: datetime
+    created_by: Optional[str] = None
+    updated_by: Optional[str] = None
 
     class Config:
         from_attributes = True
