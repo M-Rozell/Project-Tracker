@@ -1,6 +1,7 @@
 from pydantic import BaseModel, EmailStr
 from datetime import date, datetime
 from typing import Optional
+from enum import Enum
 
 # ----------------- Project Schema -----------------
 class ProjectBase(BaseModel):
@@ -31,31 +32,41 @@ class Project(ProjectBase):
     updated_by: Optional[str] = None
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 # ----------------- User Schemas -----------------
+
+class UserRole(str, Enum):
+    admin = "admin"
+    manager = "manager"
+    user = "user"
+
+
 class UserCreate(BaseModel):
     username: str
     password: str
     email: EmailStr
-    role: str = "user"
+    role: UserRole = UserRole.user
 
 class UserLogin(BaseModel):
     username: str
     password: str
 
 class UserUpdate(BaseModel):
-    role: str
+    username: Optional[str] = None
+    password: Optional[str] = None
+    email: Optional[EmailStr] = None
+    role: Optional[UserRole] = None
 
 class UserOut(BaseModel):
     id: int
     username: str
     email: EmailStr
-    role: str
+    role: UserRole = UserRole.user
     create_time: datetime
     update_time: datetime
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 

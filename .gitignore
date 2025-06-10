@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
+*.pyc
 *.env
 .env
 
@@ -24,6 +25,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 desktop.ini
+*.db
 
 # Compiled files
 *.exe

@@ -1,0 +1,97 @@
+.dashboard-title {
+  color: #f0f0f0;
+}
+
+.welcomeDashboard {
+    color: white;
+}
+
+.admin-options {
+  color: #f0f0f0;
+}
+
+
+.dropdown-btn {
+    background-color: #f0f0f0;
+    border: none;
+    font-size: 16px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .dropdown-menu {
+    margin-top: 4px;
+    margin-left: 12px;
+    padding: 6px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    list-style-type: none;
+    width: max-content;
+  }
+  
+  .dropdown-menu li {
+    margin: 4px 0;
+  }
+  
+  .dropdown-menu a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .dropdown-menu a:hover {
+    text-decoration: underline;
+    color: #007bff;
+  }
+   
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 90%;
+    position: relative;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .modal-form input,
+  .modal-form select,
+  .modal-form button {
+    display: block;
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+  }
+
+  .error-space {
+    min-height: .9rem; 
+    margin-bottom: 0.5rem;
+  }
+
+  .error {
+    color: red;
+    font-size: 0.75rem;
+  }
+  

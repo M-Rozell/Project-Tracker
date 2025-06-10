@@ -36,7 +36,7 @@ users = Table(
     Column("update_time", DateTime, server_default=func.now(), onupdate=func.now()),
 )
 
-role = Column(String, default="user")  # e.g. "admin", "manager", "user"
+
 
 
 

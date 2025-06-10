@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../utils/AuthContext";
 import "../css/login.css";
 
-const Login = ({ setLogin }) => {
+const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -23,7 +23,6 @@ const Login = ({ setLogin }) => {
         setUsername("");
         setPassword("");
         setError("");
-        setLogin(false);
         console.log("Form Cleared!");
     };
 
