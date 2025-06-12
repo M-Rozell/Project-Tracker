@@ -27,34 +27,36 @@ const Login = () => {
     };
 
     return (
-        <div className="loginWrapper">
+        <div className="login-container">
             <h1
-                className="loginTitle"
-            >Login
+                className="login-txt"
+            >ENTER
             </h1>
             <form
-            className="loginFormWrapper" 
+            className="login-form-container" 
             onSubmit={handleSubmit}
             >
-                <div>
-                    <label>Username:</label>
+                <div>                
                     <input
                         type="text"
+                        placeholder="Username"
+                        className="login-input"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
                 <div>
-                    <label>Password:</label>
                     <input
-                        type="password"
+                        type="text"
+                        placeholder="Password"
+                        className="login-input"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <div className="formBtnWrapper">
-                    <button type="submit">Login</button>
-                    <button onClick={handleReset} type="button">Clear</button>
+                <div className="form-btn-container">
+                    <button type="submit">YES</button>
+                    <button onClick={handleReset} type="button">NO</button>
                 </div>
                 
             </form>

@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import CreateUser from "./pages/admin/CreateUser";
 import EditUser from "./pages/admin/EditUser";
 import DeleteUser from "./pages/admin/DeleteUser";
@@ -8,20 +7,20 @@ import ListUsers from "./pages/admin/ListUsers";
 import { useAuth } from "../utils/AuthContext";
 import "../css/Dashboard.css";
 
-const Dashboard = (username) => {
-  const [role, setRole] = useState("");
+const Dashboard = () => {
+  
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [activeModal, setActiveModal] = useState(null); // 'create' | 'edit' | 'delete' | 'list'
-  const { logout } = useAuth();
+  const { logout, user, loading } = useAuth();
 
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      const decoded = jwtDecode(token);
-      setRole(decoded.role);
-    }
-  }, []);
+  if (loading) return <p>Loading...</p>;
 
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  if (!user.role) return <p>Error: No role found in user object.</p>;
+  
+  
   const toggleUserDropdown = () => {
     setShowUserDropdown((prev) => !prev);
   };
@@ -37,13 +36,14 @@ const Dashboard = (username) => {
 
   return (
     <div className="dashboard-container">
-      <h1 className="dashboard-title">Dashboard</h1>
-      <button onClick={logout} className="logout-button">Logout</button>
-      {role === "admin" && (
+      <div className="logout-btn-container">
+        <button onClick={logout} className="logout-button">Logout</button>
+      </div>
+      {user.role === "admin" && (
         <div>
-          <p className="welcomeDashboard">Welcome!</p>
+          <p className="welcomeDashboard">{user.sub} ({user.role})</p>
           
-          <ul className="admin-options">
+          <ul className="dashboard-options">
             
             <li>Manage Projects</li>
             {/* Manage Users Dropdown */}
@@ -71,10 +71,10 @@ const Dashboard = (username) => {
       {activeModal === "list" && <ListUsers onClose={closeModal} />}
 
 
-      {role === "manager" && (
+      {user.role === "manager" && (
         <div>
-          <p className="mb-2">Welcome!</p>
-          <ul className="space-y-2">
+          <p className="welcomeDashboard">{user.sub} ({user.role})</p>
+          <ul className="dashboard-options">
             <li>Create Project</li>
             <li>Edit Project</li>
             <li>View All Projects</li>
@@ -82,9 +82,9 @@ const Dashboard = (username) => {
         </div>
       )}
 
-      {role === "user" && (
+      {user.role === "user" && (
         <div>
-          <p className="mb-2">Welcome, User!</p>
+          <p className="mb-2">{user.sub} ({user.role})</p>
           <ul className="space-y-2">
             <li>View Your Projects</li>
           </ul>

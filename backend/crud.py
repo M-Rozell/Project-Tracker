@@ -6,6 +6,7 @@ async def get_users():
     query = users.select()
     return await database.fetch_all(query)
 
+
 async def create_user(user: UserCreate):
     query = users.insert().values(
         username=user.username,
@@ -15,6 +16,7 @@ async def create_user(user: UserCreate):
     )
     last_record_id = await database.execute(query)
     return last_record_id
+
 
 async def update_user(user_id: int, updated_data: UserUpdate):
     # Build dict of fields to update, ignoring None values
@@ -26,6 +28,7 @@ async def update_user(user_id: int, updated_data: UserUpdate):
         query = users.select().where(users.c.id == user_id)
         return await database.fetch_one(query)
     return None
+
 
 async def delete_user(user_id: int):
     query = users.delete().where(users.c.id == user_id)

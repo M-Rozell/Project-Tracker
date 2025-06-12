@@ -1,18 +1,30 @@
-.dashboard-title {
-  color: #f0f0f0;
+
+.dashboard-container {
+  height: 100%;
+  width: 100%;
+}
+
+.logout-btn-container {
+  margin: .5rem;
+ text-align: right;
+}
+
+.logout-button {
+  justify-content: right;
 }
 
 .welcomeDashboard {
-    color: white;
+  font-family: monospace;
+  color: #DDDDDD;
 }
 
-.admin-options {
-  color: #f0f0f0;
+.dashboard-options {
+  color: #DDDDDD;
 }
 
 
 .dropdown-btn {
-    background-color: #f0f0f0;
+    background-color: #DDDDDD;
     border: none;
     font-size: 16px;
     padding: 6px 12px;

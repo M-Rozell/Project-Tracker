@@ -14,8 +14,8 @@ function createWindow() {
     // expose window controlls in Windows/Linux
     ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {}),
     titleBarOverlay: {
-      color: '#1c1c1c',
-    symbolColor: 'white',
+      color: '#151515',
+    symbolColor: '#DDDDDD',
     height: 8
     },
       webPreferences: {

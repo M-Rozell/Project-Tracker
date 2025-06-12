@@ -1,6 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from fastapi import status
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
@@ -51,7 +50,6 @@ def create_refresh_token(data: dict, expires_delta: timedelta = timedelta(days=7
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
-
 # Verify JWT token
 def verify_token(token: str) -> dict:
     try:
@@ -69,6 +67,7 @@ def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
     if not username or not role:
         raise HTTPException(status_code=401, detail="Invalid token payload")
     return {"username": username, "role": role}
+
 
 def require_permission(permission: str):
     def permission_checker(current_user: dict = Depends(get_current_user)):

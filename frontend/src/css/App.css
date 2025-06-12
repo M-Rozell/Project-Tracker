@@ -1,7 +1,7 @@
 body,html {
   margin: 0;
   padding: 0;
-  background: #252525;
+  background: #191919;
 }
 
 * {
@@ -16,20 +16,14 @@ body,html {
 .titleBar {
   padding: .25rem 0 0 1rem;
   height: 2rem;
-  background: #1c1c1c;
+  background: #151515;
   font-family: 'Segoe UI', sans-serif;
   font-weight: 100;
   font-size: 1rem;
-  color: #c1c2c1;
+  color: #DDDDDD;
   -webkit-app-region: drag; /* Enables dragging of the window in Electron */
 }
-label {
-  color: #c1c2c1;
-}
 
-.welcome {
-  color: #c1c2c1;
-}
 
 
 
